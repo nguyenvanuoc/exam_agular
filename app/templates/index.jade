@@ -1,0 +1,39 @@
+html(lang="en",ng-app="myApp")
+	head
+		title= Demo
+		link(rel="stylesheet", href="css/style.css")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js")
+	body
+		include layout/header.jade
+		block content
+			h1 Contact Us
+			div(ng-controller="contactController")
+				table
+					tr
+						th Name
+						th Email
+						th Company
+						th role
+						th Twitter
+						th Location
+						th Info
+						th Image
+					tr(ng-repeat="contact in contacts.contacts")
+						td {{contact.name}}
+						td {{contact.email}}
+						td {{contact.company}}
+						td {{contact.role}}
+						td {{contact.twitter}}
+						td {{contact.location}}
+						td {{contact.info}}
+						td {{contact.image}}
+		script.
+			var myApp=angular.module('myApp',[]);
+			myApp.controller('contactController',function($scope,$http){
+				$http.get("https://address-book-demo.herokuapp.com/api/contacts").success(function(data){
+					console.log("demo");
+					console.log(data.contacts);
+					$scope.contacts=data;
+				});
+			});
+		include layout/footer.jade

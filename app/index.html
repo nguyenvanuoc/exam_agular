@@ -1,0 +1,45 @@
+
+<html lang="en" ng-app="myApp">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  </head>
+  <body>
+    <h1>Contact Us</h1>
+    <div ng-controller="contactController">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Company</th>
+          <th>role</th>
+          <th>Twitter</th>
+          <th>Location</th>
+          <th>Info</th>
+          <th>Image</th>
+        </tr>
+        <tr ng-repeat="contact in contacts.contacts">
+          <td>{{contact.name}}</td>
+          <td>{{contact.email}}</td>
+          <td>{{contact.company}}</td>
+          <td>{{contact.role}}</td>
+          <td>{{contact.twitter}}</td>
+          <td>{{contact.location}}</td>
+          <td>{{contact.info}}</td>
+          <td>{{contact.image}}</td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      var myApp=angular.module('myApp',[]);
+      myApp.controller('contactController',function($scope,$http){
+      	$http.get("https://address-book-demo.herokuapp.com/api/contacts").success(function(data){
+      		console.log("demo");
+      		console.log(data.contacts);
+      		$scope.contacts=data;
+      	});
+      });
+    </script>
+  </body>
+</html>
